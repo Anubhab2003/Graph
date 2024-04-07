@@ -63,6 +63,17 @@ public class BreadthFirstSearch {
             }
         }
     }
+    public static void dfs(ArrayList<Edge>[]graph,int curr,boolean vis[]){
+        //visit
+        System.out.print(curr+" ");
+        vis[curr]=true;
+        for(int i=0;i<graph[curr].size();i++){
+            Edge e=graph[curr].get(i);
+            if(!vis[e.dest]){
+                dfs(graph,e.dest,vis);
+            }
+        }
+    }
 
     public static void main(String[] args) {
         int v = 7; // Number of vertices in the graph
@@ -71,5 +82,7 @@ public class BreadthFirstSearch {
         createGraph(graph);
         System.out.println("Breadth First Search Traversal:");
         bfs(graph);
+        System.out.println();
+        dfs(graph,0,new boolean[v]);
     }
 }
