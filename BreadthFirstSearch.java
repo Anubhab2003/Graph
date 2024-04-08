@@ -74,6 +74,20 @@ public class BreadthFirstSearch {
             }
         }
     }
+    public static boolean haspath(ArrayList<Edge>[]graph,int src,int dest,boolean vis[]){
+        if(src==dest){
+            return true;
+        }
+        vis[src]=true;
+        for(int i=0;i<graph[src].size();i++){
+            Edge e=graph[src].get(i);
+            //e.dest=neighbour
+            if(!vis[e.dest]&&haspath(graph,e.dest,dest,vis)){
+                return true;
+            }
+        }
+        return false;
+    }
 
     public static void main(String[] args) {
         int v = 7; // Number of vertices in the graph
@@ -84,5 +98,7 @@ public class BreadthFirstSearch {
         bfs(graph);
         System.out.println();
         dfs(graph,0,new boolean[v]);
+        System.out.println();
+        System.out.println(haspath(graph,0,9999,new boolean[v]));
     }
 }
