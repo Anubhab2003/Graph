@@ -37,10 +37,18 @@ public class BreadthFirstSearch {
         graph[5].add(new Edge(5, 6, 1));
         graph[6].add(new Edge(6, 5, 1));
     }
-
-    public static void bfs(ArrayList<Edge>[] graph) {
-        Queue<Integer> q = new LinkedList<>();
+    public static void bfs(ArrayList<Edge>[]graph){
         boolean[] vis = new boolean[graph.length]; // Array to keep track of visited vertices
+        for(int i=0;i<graph.length;i++){
+            if(!vis[i]){
+                bfsUtil(graph,vis);
+            }
+        }
+    }
+
+    public static void bfsUtil(ArrayList<Edge>[] graph,boolean vis[]) {
+        Queue<Integer> q = new LinkedList<>();
+        //boolean[] vis = new boolean[graph.length]; // Array to keep track of visited vertices
 
         // Add the starting vertex (assumed to be vertex 0) to the queue
         q.add(0);
@@ -63,14 +71,20 @@ public class BreadthFirstSearch {
             }
         }
     }
-    public static void dfs(ArrayList<Edge>[]graph,int curr,boolean vis[]){
+    public static void dfs(ArrayList<Edge>[] graph){
+        boolean[] vis = new boolean[graph.length]; // Array to keep track of visited vertices
+        for(int i=0;i<graph.length;i++){
+            dfsUtil(graph,i,vis);
+        }
+    }
+    public static void dfsUtil(ArrayList<Edge>[]graph,int curr,boolean vis[]){
         //visit
         System.out.print(curr+" ");
         vis[curr]=true;
         for(int i=0;i<graph[curr].size();i++){
             Edge e=graph[curr].get(i);
             if(!vis[e.dest]){
-                dfs(graph,e.dest,vis);
+                dfsUtil(graph,e.dest,vis);
             }
         }
     }
@@ -97,7 +111,7 @@ public class BreadthFirstSearch {
         System.out.println("Breadth First Search Traversal:");
         bfs(graph);
         System.out.println();
-        dfs(graph,0,new boolean[v]);
+        dfsUtil(graph,0,new boolean[v]);
         System.out.println();
         System.out.println(haspath(graph,0,9999,new boolean[v]));
     }
